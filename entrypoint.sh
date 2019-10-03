@@ -41,11 +41,6 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
   exit 1
 fi
 
-
-current_branch=$(git branch | grep "^*" | awk '{print $2}')
-echo "DEBUG: current branch = $current_branch"
-if [ "$current_branch" = "master" ];then
-
 	last_tag_number=$(git tag -l | sort -V | tail -n 1 | cut -c 2- | cut -d '.' -f1)
 
 	# if not exist env var $VERSION
@@ -86,8 +81,3 @@ if [ "$current_branch" = "master" ];then
 		git_tag="$VERSION"
 		request_create_release
 	fi
-
-else
-	echo "This Action run only in master branch"
-	exit 0
-fi
