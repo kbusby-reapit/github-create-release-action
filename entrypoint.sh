@@ -40,7 +40,7 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
   echo "Set the GITHUB_TOKEN env variable."
   exit 1
 fi
-
+if [[ @branch@ = "master" ]]; then
 	last_tag_number=$(git tag -l | sort -V | tail -n 1 | cut -c 2- | cut -d '.' -f1)
 
 	# if not exist env var $VERSION
@@ -81,3 +81,7 @@ fi
 		git_tag="$VERSION"
 		request_create_release
 	fi
+else
+	echo "This Action run only in master branch"
+	exit 0
+fi
