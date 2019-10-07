@@ -42,7 +42,7 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
 fi
 if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/development" ]]; then
 	last_tag_number=$(git tag -l | sort -V | tail -n 1 | cut -c 2- | cut -d '.' -f1)
-	echo $VERSION exit
+	echo "The current version is: " $VERSION exit
 	# if not exist env var $VERSION
 	# get tag by 'git tag' command
 	if [[ -z "$VERSION" ]]; then
