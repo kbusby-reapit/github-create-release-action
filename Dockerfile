@@ -1,15 +1,15 @@
 FROM debian:9.5-slim
 
 LABEL "com.github.actions.name" = "Github Create Release"
-LABEL "com.github.actions.description" = "Action to create a Github Release always that user push on master branch"
+LABEL "com.github.actions.description" = "Action to create a Github Release"
 
 LABEL "com.github.actions.icon"="git-merge"
 LABEL "com.github.actions.color"="gray-dark"
 
-LABEL "repository" = "https://github.com/frankjuniorr/github-create-release-action"
+LABEL "repository" = "https://github.com/kbusby-reapit/github-create-release-action"
 
-LABEL "homepage" = "https://github.com/frankjuniorr/github-create-release-action"
-LABEL "maintainer"="Frank Junior"
+LABEL "homepage" = "https://github.com/kbusby-reapit/github-create-release-action"
+LABEL "maintainer"="Reapit"
 
 RUN apt-get update && apt-get install -y \
 	--no-install-recommends \
