@@ -72,9 +72,7 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		next_rc_version=$((current_rc_version+1))
 		new_tag="${last_tag_number::-1}$next_rc_version"
 	else
-		old_version=${last_tag_number::-3}
-		echo "The old version of the code is: $old_version"
-		new_version=increment_version $version
+		new_version=increment_version $last_tag_number
 		echo "The new version of the code is: $new_version"
 		new_tag="${new_version}RC1"
 		echo "The new tag version is: $new_tag"
