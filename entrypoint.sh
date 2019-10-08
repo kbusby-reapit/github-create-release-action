@@ -26,9 +26,7 @@ request_create_release(){
 	json_body=$(echo "$json_body" | sed "s/@release_name@/Release $git_tag/")
 	json_body=$(echo "$json_body" | sed "s/@description@/$DESCRIPTION/")
 	json_body=$(echo "$json_body" | sed "s/@prerelease@/$prerelease/")
-	
-	echo "This is the body of the json - $json_body"
-	
+		
 	curl --request POST \
 	  --url https://api.github.com/repos/${GITHUB_REPOSITORY}/releases \
 	  --header "Authorization: Bearer $GITHUB_TOKEN" \
@@ -49,7 +47,8 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 	else
 		prerelease=false
 	fi
-	last_tag_number=$(git tag -l | sort -V | tail -n 1 | cut -c 2- | cut -d '.' -f1)
+	last_tag_number=$(git tag -l)
+	echo last_tag_number
 	# if not exist env var $VERSION
 	# get tag by 'git tag' command
 	if [[ -z "$VERSION" ]]; then
