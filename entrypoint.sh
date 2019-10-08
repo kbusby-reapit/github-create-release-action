@@ -36,7 +36,7 @@ request_create_release(){
 
 increment_version ()
 {
-  declare -a part=( ${1//\./ } )
+  declare -a part=( ${2//\./ } )
   declare    new
   declare -i carry=1
 
