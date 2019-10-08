@@ -47,7 +47,6 @@ increment_version ()
     [ $CNTR -gt 0 ] && part[CNTR]=${new: -len} || part[CNTR]=${new}
   done
   new="${part[*]}"
-  echo -e "${new// /.}"
 } 
 
 # ==================== MAIN ====================
