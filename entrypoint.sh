@@ -43,6 +43,11 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
   exit 1
 fi
 if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/development" ]]; then
+	if [[ ${GITHUB_REF} = "refs/heads/development" ]]; then
+		prerelease = true
+	else
+		prerelease = false
+	fi
 	last_tag_number=$(git tag -l | sort -V | tail -n 1 | cut -c 2- | cut -d '.' -f1)
 	# if not exist env var $VERSION
 	# get tag by 'git tag' command
