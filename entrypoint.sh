@@ -18,7 +18,7 @@ request_create_release(){
 	  "name": "@release_name@",
 	  "body": "@description@",
 	  "draft": false,
-	  "prerelease": false
+	  "prerelease": @prerelease@
 	}'
 
 	json_body=$(echo "$json_body" | sed "s/@tag_name@/$git_tag/")
@@ -44,9 +44,9 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
 fi
 if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/development" ]]; then
 	if [[ ${GITHUB_REF} = "refs/heads/development" ]]; then
-		prerelease = true
+		prerelease=true
 	else
-		prerelease = false
+		prerelease=false
 	fi
 	last_tag_number=$(git tag -l | sort -V | tail -n 1 | cut -c 2- | cut -d '.' -f1)
 	# if not exist env var $VERSION
