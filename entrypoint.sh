@@ -34,6 +34,22 @@ request_create_release(){
 	  --data "$json_body"
 }
 
+increment_version ()
+{
+  declare -a part=( ${1//\./ } )
+  declare    new
+  declare -i carry=1
+
+  for (( CNTR=${#part[@]}-1; CNTR>=0; CNTR-=1 )); do
+    len=${#part[CNTR]}
+    new=$((part[CNTR]+carry))
+    [ ${#new} -gt $len ] && carry=1 || carry=0
+    [ $CNTR -gt 0 ] && part[CNTR]=${new: -len} || part[CNTR]=${new}
+  done
+  new="${part[*]}"
+  echo -e "${new// /.}"
+} 
+
 # ==================== MAIN ====================
 
 # Ensure that the GITHUB_TOKEN secret is included
@@ -49,13 +65,16 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 	fi
 	last_tag_number=$(git describe --tags $(git rev-list --tags --max-count=1))
 
+
 	# Create new tag.
 	if [[ $last_tag_number == *"RC"* ]]; then
   		current_rc_version="${last_tag_number: -1}"
 		next_rc_version=$((current_rc_version+1))
 		new_tag="${last_tag_number::-1}$next_rc_version"
 	else
-		new_tag="${last_tag_number::-1}RC1"
+		old_version=${last_tag_number::-3}
+		new_version=increment_version $version
+		new_tag="${new_version}RC1"
 	fi
 	
 	git_tag="${new_tag}"
