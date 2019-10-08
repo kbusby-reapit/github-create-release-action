@@ -47,7 +47,7 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 	else
 		prerelease=false
 	fi
-	last_tag_number=$(git describe --tags)
+	last_tag_number=$(git describe --tags $(git rev-list --tags --max-count=1))
 	echo "The last tag number we could find is: $last_tag_number"
 	# if not exist env var $VERSION
 	# get tag by 'git tag' command
