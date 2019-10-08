@@ -18,7 +18,7 @@ request_create_release(){
 	  "name": "@release_name@",
 	  "body": "@description@",
 	  "draft": false,
-	  "prerelease": @description@
+	  "prerelease": @prerelease@
 	}'
 
 	json_body=$(echo "$json_body" | sed "s/@tag_name@/$git_tag/")
