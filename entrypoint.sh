@@ -54,17 +54,12 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
   		current_rc_version="${last_tag_number: -1}"
 		next_rc_version=$((current_rc_version+1))
 		new_tag="${last_tag_number::-1}$next_rc_version"
-		release_name="${new_tag//RC/Release Candidate }"
+	else
+		new_tag="${last_tag_number::-1}RC1"
 	fi
-	echo "The last tag number is: $last_tag_number"
-	echo "The current RC version for this sprint is: $current_rc_version"
-	echo "The next RC version for this sprint is: $next_rc_version"
-	echo "The next release name will be $release_name"
-
-	
-	echo "The new tag is going to be called: $new_tag"
 	
 	git_tag="${new_tag}"
+	release_name="${new_tag//RC/ Release Candidate }"
 	request_create_release
 
 	# If null, is the first release (code checks if it is the first release. Unnecessary for now.
@@ -77,6 +72,6 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 	#	request_create_release
 	#fi
 else
-	echo "This Action run only in master branch"
+	echo "This Action run only in master or development branch"
 	exit 0
 fi
