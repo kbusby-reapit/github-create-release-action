@@ -54,13 +54,13 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
   		current_rc_version="${last_tag_number: -1}"
 		next_rc_version=$((current_rc_version+1))
 		new_tag="${last_tag_number::-1}$next_rc_version"
-		release_name="${new_tag//RC/Release Candidate}"
+		release_name="${new_tag//RC/Release Candidate }"
 	fi
 	echo "The last tag number is: $last_tag_number"
-	echo "The next release name will be $release_name"
 	echo "The current RC version for this sprint is: $current_rc_version"
 	echo "The next RC version for this sprint is: $next_rc_version"
-	
+	echo "The next release name will be $release_name"
+
 	
 	echo "The new tag is going to be called: $new_tag"
 	
