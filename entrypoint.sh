@@ -52,7 +52,7 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 	# Create new tag.
 	if [[ $last_tag_number == *"RC"* ]]; then
   		current_rc_version="${last_tag_number: -1}"
-		next_rc_version=current_rc_version + 1
+		next_rc_version=$((current_rc_version+1))
 	fi
 	new_tag=$(echo "${last_tag_number::-1}"+=next_rc_version | bc)
 	git_tag="${new_tag}"
