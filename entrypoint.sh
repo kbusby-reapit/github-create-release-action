@@ -48,44 +48,25 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		prerelease=false
 	fi
 	last_tag_number=$(git describe --tags $(git rev-list --tags --max-count=1))
-	echo "The last tag number we could find is: $last_tag_number"
-	# if not exist env var $VERSION
-	# get tag by 'git tag' command
-	if [[ -z "$VERSION" ]]; then
-		# If null, is the first release
-		if [ $(git tag | wc -l) = "0" ];then
-			git_tag="v1.0"
-			request_create_release
-		else
-			new_tag=$(echo "$last_tag_number + 1" | bc)
-			git_tag="v${new_tag}.0"
-			request_create_release
-		fi
-	# if env var $VERSION exist, use it
-	else
-		echo "DEBUG: env VERSION = $VERSION"
-		# if en var $VERSION don't start with 'v', add 'v' in
-		# start of string
-		if [ $(echo "$VERSION" | cut -c 1) != 'v' ];then
-			VERSION="v$VERSION"
-		fi
 
-		# verify if $VERSION already exist in git tag list
-		if git tag -l | grep -q "$VERSION";then
-			echo "tag $VERSION already exist"
-			exit 1
-		fi
-
-		first_number_version=$(echo $VERSION | cut -c 2)
-		if [ $first_number_version -lt $last_tag_number ];then
-			echo "the env var $VERSION is less than last tag: $last_tag_number"
-			exit 1
-		fi
-
-		# if everything ok, the new version is env $VERSION
-		git_tag="$VERSION"
-		request_create_release
+	# Create new tag.
+	if [[ $last_tag_number == *"RC"* ]]; then
+  		current_rc_version="${last_tag_number: -1}"
+		next_rc_version=current_rc_version + 1
 	fi
+	new_tag=$(echo "${last_tag_number::-1}"+=next_rc_version | bc)
+	git_tag="${new_tag}"
+	request_create_release
+
+	# If null, is the first release (code checks if it is the first release. Unnecessary for now.
+	#if [ $(git tag | wc -l) = "0" ];then
+	#	git_tag="v1.0"
+	#	request_create_release
+	#else
+	#	new_tag=$(echo "$last_tag_number + 1" | bc)
+	#	git_tag="v${new_tag}.0"
+	#	request_create_release
+	#fi
 else
 	echo "This Action run only in master branch"
 	exit 0
