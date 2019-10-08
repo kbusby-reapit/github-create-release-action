@@ -36,11 +36,11 @@ request_create_release(){
 
 increment_version ()
 {
-  declare -a part=( ${2//\./ } )
+  declare -a part=( ${1//\./ } )
   declare    new
   declare -i carry=1
 
-  for (( CNTR=${#part[@]}-1; CNTR>=0; CNTR-=1 )); do
+  for (( CNTR=${#part[@]}-3; CNTR>=0; CNTR-=1 )); do
     len=${#part[CNTR]}
     new=$((part[CNTR]+carry))
     [ ${#new} -gt $len ] && carry=1 || carry=0
