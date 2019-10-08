@@ -23,7 +23,7 @@ request_create_release(){
 		
 	json_body=$(echo "$json_body" | sed "s/@tag_name@/$git_tag/")
 	json_body=$(echo "$json_body" | sed "s/@branch@/master/")
-	json_body=$(echo "$json_body" | sed "s/@release_name@/Release $git_tag/")
+	json_body=$(echo "$json_body" | sed "s/@release_name@/$release_name/")
 	json_body=$(echo "$json_body" | sed "s/@description@/$DESCRIPTION/")
 	json_body=$(echo "$json_body" | sed "s/@prerelease@/$prerelease/")
 		
@@ -53,11 +53,14 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 	if [[ $last_tag_number == *"RC"* ]]; then
   		current_rc_version="${last_tag_number: -1}"
 		next_rc_version=$((current_rc_version+1))
+		new_tag="${last_tag_number::-1}$next_rc_version"
+		release_name=${new_tag | tr '$' ' '}
 	fi
+	
+	echo "The next release name will be $release_name"
 	echo "The current RC version for this sprint is: $current_rc_version"
 	echo "The next RC version for this sprint is: $next_rc_version"
 	
-	new_tag="${last_tag_number::-1}$next_rc_version"
 	
 	echo "The new tag is going to be called: $new_tag"
 	
