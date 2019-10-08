@@ -40,7 +40,7 @@ increment_version ()
   declare    new
   declare -i carry=1
 
-  for (( CNTR=${#part[@]}-3; CNTR>=0; CNTR-=1 )); do
+  for (( CNTR=${#part[@]}-2; CNTR>=0; CNTR-=1 )); do
     len=${#part[CNTR]}
     new=$((part[CNTR]+carry))
     [ ${#new} -gt $len ] && carry=1 || carry=0
