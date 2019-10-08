@@ -18,13 +18,14 @@ request_create_release(){
 	  "name": "@release_name@",
 	  "body": "@description@",
 	  "draft": false,
-	  "prerelease": $prerelease
+	  "prerelease": @description@
 	}'
 
 	json_body=$(echo "$json_body" | sed "s/@tag_name@/$git_tag/")
 	json_body=$(echo "$json_body" | sed "s/@branch@/master/")
 	json_body=$(echo "$json_body" | sed "s/@release_name@/Release $git_tag/")
 	json_body=$(echo "$json_body" | sed "s/@description@/$DESCRIPTION/")
+	json_body=$(echo "$json_body" | sed "s/@prerelease@/$prerelease/")
 	
 	echo "This is the body of the json - $json_body"
 	
