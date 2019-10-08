@@ -54,7 +54,7 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
   		current_rc_version="${last_tag_number: -1}"
 		next_rc_version=$((current_rc_version+1))
 		new_tag="${last_tag_number::-1}$next_rc_version"
-		release_name=( echo -e "new_tag" | tr 'RC' 'Release Candidate'}
+		release_name=$( echo -e "new_tag" | tr 'RC' 'Release Candidate'}
 	fi
 	
 	echo "The next release name will be $release_name"
