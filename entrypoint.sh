@@ -63,7 +63,7 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 	else
 		prerelease=false
 	fi
-	last_tag_number=$(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname)' --count=1)
+	last_tag_number=$(git for-each-ref --sort=-taggerdate --format='%(refname)' --count=1)
 
 	echo "This is the last tag number: $last_tag_number"
 	
