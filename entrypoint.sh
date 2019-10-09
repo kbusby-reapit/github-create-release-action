@@ -63,13 +63,13 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 	else
 		prerelease=false
 	fi
-	last_tag_number=$(git describe --tags $(git rev-list --tags --max-count=1))
+	last_tag_number=$(git describe --abbrev=0)
 
 	echo "This is the last tag number: $last_tag_number"
 	
 	# Create new tag.
 	if [[ $last_tag_number == *"RC"* ]]; then
-	echo "This is an RC version of the code."
+		echo "This is an RC version of the code."
   		current_rc_version="${last_tag_number: -1}"
 		next_rc_version=$((current_rc_version+1))
 		new_tag="${last_tag_number::-1}$next_rc_version"
