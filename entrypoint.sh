@@ -58,25 +58,30 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
   exit 1
 fi
 if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/development" ]]; then
+	last_tag_number=$(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1)
+	
 	if [[ ${GITHUB_REF} = "refs/heads/development" ]]; then
 		prerelease=true
+	
+		# Create new tag.
+		if [[ $last_tag_number == *"RC"* ]]; then
+			current_rc_version="${last_tag_number: -1}"
+			next_rc_version=$((current_rc_version+1))
+			new_tag="${last_tag_number::-1}$next_rc_version"
+		else
+			new_version=$(increment_version $last_tag_number)
+			new_tag="${new_version}RC1"
+		fi	
 	else
 		prerelease=false
+		
+		if [[ $last_tag_number == *"RC"* ]]; then
+			$last_tag_number = ($last_tag_number | sed 's/RC.*//')
+		else
+		
+		fi
 	fi
-	last_tag_number=$(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1)
 
-	echo "This is the last tag number: $last_tag_number"
-	
-	# Create new tag.
-	if [[ $last_tag_number == *"RC"* ]]; then
-		echo "This is an RC version of the code."
-  		current_rc_version="${last_tag_number: -1}"
-		next_rc_version=$((current_rc_version+1))
-		new_tag="${last_tag_number::-1}$next_rc_version"
-	else
-		new_version=$(increment_version $last_tag_number)
-		new_tag="${new_version}RC1"
-	fi
 	
 	git_tag="${new_tag}"
 	release_name="${new_tag//RC/ Release Candidate }"
