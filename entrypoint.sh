@@ -67,7 +67,7 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 
 
 	# Create new tag.
-	if [[ $last_tag_number == *"RC"* ]]; then
+	if [[ $last_tag_number == *"Release Candidate"* ]]; then
 	echo "This is an RC version of the code."
   		current_rc_version="${last_tag_number: -1}"
 		next_rc_version=$((current_rc_version+1))
