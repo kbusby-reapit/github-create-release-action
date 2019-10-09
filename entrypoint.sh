@@ -76,7 +76,8 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		prerelease=false
 		
 		if [[ $last_tag_number == *"RC"* ]]; then
-			$last_tag_number = "$last_tag_number" | sed 's/RC.*//'		
+			$last_tag_number = "$last_tag_number" | sed 's/RC.*//'	
+			echo "The last tag number is: $last_tag_number"
 		fi
 	fi
 
