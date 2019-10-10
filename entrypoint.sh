@@ -76,8 +76,6 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		prerelease=false
 		
 		if [[ $last_tag_number == *"RC"* ]]; then
-			echo ${last_tag_number%RC*}
-			echo ${last_tag_number//RC}
 			echo "The last tag number is: $last_tag_number"
 		fi
 	fi
