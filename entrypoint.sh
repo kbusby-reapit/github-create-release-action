@@ -82,7 +82,10 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		last_commit=$(git log -1 | grep 'hotfix-')
 		
 		if [ -n "$last_commit" ]; then
-			echo "The last commit to the master branch was: $last_commit"
+			#Hotfixes will remain a manual process as they are a rare occurance
+			#It would also make this automation very combersome.
+			echo "LOG: Release cancelled as change is a hot fix"
+			exit 0
 		fi
 	fi
 
