@@ -79,7 +79,7 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 			new_tag=${last_tag_number%RC*}
 		fi
 		branch=$(git branch | sed -nr 's/\*\s(.*)/\1/p')
-		echo $branch
+		echo "The current branch is: $branch"
 	fi
 
 	git_tag="${new_tag}"
