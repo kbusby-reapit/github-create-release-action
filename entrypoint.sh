@@ -59,7 +59,7 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
 fi
 if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/development" ]]; then
 	last_tag_number=$(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1)
-	
+	echo "The last tag number was: $last_tag_number"
 	if [[ ${GITHUB_REF} = "refs/heads/development" ]]; then
 		prerelease=true
 	
