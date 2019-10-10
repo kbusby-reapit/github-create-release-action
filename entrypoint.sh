@@ -74,19 +74,20 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		fi	
 	else
 		prerelease=false
-		
+		echo "LOG: Merging into Master branch"
 		if [[ $last_tag_number == *"RC"* ]]; then
 			new_tag=${last_tag_number%RC*}
+			echo "The new tag and release is: $new_tag"
 		else
 			new_tag=$last_tag_number
+			echo "The new tag and release is: $new_tag"
 		fi
 		
 		last_commit=$(git log -1 | grep 'hotfix-')
-		
 		if [ -n "$last_commit" ]; then
 			#Hotfixes will remain a manual process as they are a rare occurance
 			#It would also make this automation very combersome.
-			echo "LOG: Release cancelled as change is a hot fix"
+			echo "LOG: Release cancelled as change is a hot fix and should be done manually"
 			exit 0
 		fi
 	fi
