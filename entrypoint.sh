@@ -85,6 +85,7 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		fi
 		
 		last_commit=$(git log -1 | grep 'hotfix-')
+		echo "The last commit was: $last_commit"
 		if [ -n "$last_commit" ]; then
 			#Hotfixes will remain a manual process as they are a rare occurance
 			#It would also make this automation very combersome.
