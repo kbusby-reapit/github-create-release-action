@@ -78,7 +78,7 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		if [[ $last_tag_number == *"RC"* ]]; then
 			new_version=$(increment_version $last_tag_number)
 			new_tag=${new_version%RC*}
-			echo "The new tag number is going to be: $new_version"
+			echo "The new tag number is going to be: $new_tag"
 		fi
 	fi
 
