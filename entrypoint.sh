@@ -78,8 +78,12 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		if [[ $last_tag_number == *"RC"* ]]; then
 			new_tag=${last_tag_number%RC*}
 		fi
-		branch=$(git branch | sed -nr 's/\*\s(.*)/\1/p')
-		echo "The current branch is: $branch"
+		
+		last_commit=$ {git log -1 | grep 'hotfix-'}
+		
+		if [[ -z $last_commit ]]; then
+			echo "The last commit to the master branch was: $last_commit"
+		fi
 	fi
 
 	git_tag="${new_tag}"
