@@ -78,7 +78,7 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		if [[ $last_tag_number == *"RC"* ]]; then
 			new_tag=${last_tag_number%RC*}
 		fi
-		branch=$(git symbolic-ref --short HEAD)
+		branch=$(git rev-parse --abbrev-ref HEAD)
 		echo $branch
 	fi
 
