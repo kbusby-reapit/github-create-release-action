@@ -76,7 +76,8 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		prerelease=false
 		echo "LOG: Merging into Master branch"
 		if [[ $last_tag_number == *"RC"* ]]; then
-			new_tag="${increment_version $last_tag_number}%RC*"
+			modified_tag=($last_tag_number%RC*)
+			new_tag=$(increment_version $modified_tag)
 			echo "The new tag and release is: $new_tag"
 		else
 			new_tag=$(increment_version $last_tag_number)
