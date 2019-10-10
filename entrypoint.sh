@@ -80,6 +80,11 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		fi
 		
 		last_commit=$(git log -1 | grep 'hotfix-')
+		echo "The last commit to the master branch was: $last_commit"
+		last_commit2="${git log -1 | grep 'hotfix-'}"
+		echo "The last commit to the master branch was: $last_commit2"
+		last_commit3=$(git log -1)
+		echo "The last commit to the master branch was: $last_commit3"
 		
 		if [[ -z $last_commit ]]; then
 			echo "The last commit to the master branch was: $last_commit"
