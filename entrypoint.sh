@@ -77,24 +77,12 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		
 		if [[ $last_tag_number == *"RC"* ]]; then
 			new_tag=${last_tag_number%RC*}
-			echo "The new tag number is going to be: $new_tag"
 		fi
 	fi
 
-	
 	git_tag="${new_tag}"
 	release_name="${new_tag//RC/ Release Candidate }"
 	request_create_release
-
-	# If null, is the first release (code checks if it is the first release. Unnecessary for now.
-	#if [ $(git tag | wc -l) = "0" ];then
-	#	git_tag="v1.0"
-	#	request_create_release
-	#else
-	#	new_tag=$(echo "$last_tag_number + 1" | bc)
-	#	git_tag="v${new_tag}.0"
-	#	request_create_release
-	#fi
 else
 	echo "This Action run only in master or development branch"
 	exit 0
