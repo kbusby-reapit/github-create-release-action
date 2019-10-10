@@ -76,7 +76,8 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		prerelease=false
 		
 		if [[ $last_tag_number == *"RC"* ]]; then
-			echo "The last tag number is: $last_tag_number"
+			new_tag="${last_tag_number::-1}$next_rc_version"
+			echo $new_tag
 		fi
 	fi
 
