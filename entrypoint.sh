@@ -78,7 +78,7 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		if [[ $last_tag_number == *"RC"* ]]; then
 			new_tag=${last_tag_number%RC*}
 		else
-			new_tag=${last_tag_number%RC*}
+			new_tag=$last_tag_number
 		fi
 		
 		last_commit=$(git log -1 | grep 'hotfix-')
