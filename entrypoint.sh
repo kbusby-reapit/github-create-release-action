@@ -78,15 +78,17 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		if [[ $last_tag_number == *"RC"* ]]; then
 			modified_tag="${last_tag_number%RC*}"
 			new_tag=$modified_tag
+			echo "The last tag was an RC version"
 			echo "The new tag and release is: $new_tag"
 		else
 			new_tag=$(increment_version $last_tag_number)
+			echo "The last tag was not an RC version"
 			echo "The new tag and release is: $new_tag"
 		fi
 		
 		last_commit=$(git log -1 --pretty=%B)
 		echo "The last commit was: $last_commit"
-		if ][ -n "$last_commit" && "$last_commit" == *"hotfix-"* ]]; then
+		if [[ -n "$last_commit" && "$last_commit" == *"hotfix-"* ]]; then
 			#Hotfixes will remain a manual process as they are a rare occurance
 			#It would also make this automation very combersome.
 			echo "LOG: Release cancelled as change is a hot fix and should be done manually"
