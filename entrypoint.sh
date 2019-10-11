@@ -86,7 +86,7 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 		
 		last_commit=$(git log -1 --pretty=%B)
 		echo "The last commit was: $last_commit"
-		if [ -n "$last_commit" && "$last_commit" == *"hotfix-"* ]; then
+		if ][ -n "$last_commit" && "$last_commit" == *"hotfix-"* ]]; then
 			#Hotfixes will remain a manual process as they are a rare occurance
 			#It would also make this automation very combersome.
 			echo "LOG: Release cancelled as change is a hot fix and should be done manually"
