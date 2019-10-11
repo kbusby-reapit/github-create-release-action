@@ -58,7 +58,7 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
   exit 1
 fi
 if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/development" ]]; then
-	last_tag_number=$(git describe --tags)
+	last_tag_number=$(git describe --tags $(git rev-list --tags --max-count=1))
 	echo "The last tag number was: $last_tag_number"
 	if [[ ${GITHUB_REF} = "refs/heads/development" ]]; then
 		prerelease=true
