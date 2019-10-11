@@ -84,7 +84,7 @@ if [[ ${GITHUB_REF} = "refs/heads/master" || ${GITHUB_REF} = "refs/heads/develop
 			echo "The new tag and release is: $new_tag"
 		fi
 		
-		last_commit=$(git log -1)
+		last_commit=$(git log -n 1 origin/master)
 		echo "The last commit was: $last_commit"
 		if [ -n "$last_commit" && $last_commit == *"hotfix-"* ]; then
 			#Hotfixes will remain a manual process as they are a rare occurance
